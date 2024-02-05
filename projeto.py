@@ -39,20 +39,19 @@ class Biblioteca:
         return "Membro adicionado com sucesso"
 
     def pegar_emprestado(self):
-        membro_nome = str(input("Digite o nome de quem quer pegar o livro emprestado: "))
+        membro_nome = str(input("Digite o nome do membro: "))
         for membro in self.registro_membros:
             if membro_nome == membro.nome:
                 livro_titulo = input("Digite o título do livro: ")
                 for livro in self.catalogo_livros:
                     if livro_titulo == livro.titulo:
-                        # if livro.status
                         livro.status = False
                         membro.historico.append(livro)
                         return f"Livro {livro.titulo} emprestado "
                     else:
                         print("Livro não encontrado")
             else:
-                return "Membro não encontrado"
+                return "Membro não encontrado. Por favor, cadastre o novo membro."
 
 
     
@@ -63,7 +62,7 @@ class Biblioteca:
                 livro.status = True
                 return f"Livro {livro.titulo} devolvido"
             else:
-                print ("O livro não é da nossa biblioteca")
+                print ("O livro não tem cadastro na nossa biblioteca")
 
     def pesquisar_livro(self):
         menu = int(input("""Escolha uma opção: 
@@ -71,43 +70,42 @@ class Biblioteca:
                         2 - Pesquisar por autor
                         3 - Pesquisar por ID
                         """))
-        match menu:
-            case 1:
-                titulo = input("Digite o título do livro: ")
-                for livro in self.catalogo_livros:
-                    if titulo == livro.titulo:
-                        return f""" Informações do livro pesquisado
+        if menu == 1:
+            titulo = input("Digite o título do livro: ")
+            for livro in self.catalogo_livros:
+                if titulo == livro.titulo:
+                    return f""" Informações do livro pesquisado
                         Título: {livro.titulo}
                         Autor: {livro.autor}
                         Id: {livro.id}
                         Status: {livro.status}
                         """
-                    else:
-                         print("Livro não encontrado")
-            case 2:
-                autor = input("Digite o nome do autor: ")
-                for livro in self.catalogo_livros:
-                    if autor == livro.autor:
-                        return f"""Informações do livro pesquisado
+                else:
+                    print("Livro não encontrado")
+        elif menu == 2:
+            autor = input("Digite o nome do autor: ")
+            for livro in self.catalogo_livros:
+                if autor == livro.autor:
+                    return f"""Informações do livro pesquisado
                         Título: {livro.titulo}
                         Autor: {livro.autor}
                         Id: {livro.id}
                         Status: {livro.status}
                         """
-                    else:
-                         print("Livro não encontrado")
-            case 3:
-                id = int(input("Digite o ID do livro: "))
-                for livro in self.catalogo_livros:
-                    if id == livro.id:
-                        return f"""Informações do livro pesquisado
+                else:
+                    print("Livro não encontrado")
+        elif menu == 3:
+            id = int(input("Digite o ID do livro: "))
+            for livro in self.catalogo_livros:
+                if id == livro.id:
+                    return f"""Informações do livro pesquisado
                         Título: {livro.titulo}
                         Autor: {livro.autor}
                         Id: {livro.id}
                         Status: {livro.status}
                         """
-                    else:
-                         print("Livro não encontrado")
+                else:
+                    print("Livro não encontrado")
 
 
 biblioteca1 = Biblioteca()
@@ -121,22 +119,20 @@ while True:
                     5 - Devolver livro
                     0 - Sair
                     """))
-    match menu:
-        case 1:
-            print(biblioteca1.adicionar_livro())
-        case 2:
-            print(biblioteca1.adicionar_membro())
-        case 3:
-            print(biblioteca1.pesquisar_livro())
-        case 4:
-            print(biblioteca1.pegar_emprestado())
-        case 5:
-            print(biblioteca1.devolver_livro())
-        case 0:
-            break
-        case _:
-            print("Opção inválida")
-
+    if menu == 1:
+        print(biblioteca1.adicionar_livro())
+    elif menu == 2:
+        print(biblioteca1.adicionar_membro())
+    elif menu == 3:
+        print(biblioteca1.pesquisar_livro())
+    elif menu == 4:
+        print(biblioteca1.pegar_emprestado())
+    elif menu == 5:
+        print(biblioteca1.devolver_livro())
+    elif menu == 0:
+        break
+    else:
+        print("Opção inválida")
 
 
 
